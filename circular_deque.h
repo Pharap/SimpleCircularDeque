@@ -16,7 +16,6 @@
 //  limitations under the License.
 //
 
-
 // For std::size_t, std::ptrdiff_t
 #include <cstddef>
 
@@ -32,11 +31,13 @@
 // For std::reverse_iterator, std::bidirectional_iterator_tag
 #include <iterator>
 
+
 template<typename Type, std::size_t capacity>
 class circular_deque;
 
 template<typename Type, std::size_t capacity>
 class circular_deque_iterator;
+
 
 template<typename Type, std::size_t capacity_value>
 class circular_deque
@@ -432,6 +433,7 @@ private:
 		return (front_index > first_index) ? (front_index - 1) : last_index;
 	}
 };
+
 
 template<typename Type, std::size_t capacity_value>
 class circular_deque_iterator
