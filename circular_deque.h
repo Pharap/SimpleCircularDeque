@@ -442,23 +442,23 @@ private:
 	friend class circular_deque<Type, capacity_value>;
 
 private:
-	using circular_deque = circular_deque<Type, capacity_value>;
-	using size_type = typename circular_deque::size_type;
+	using circular_deque_type = circular_deque<Type, capacity_value>;
+	using size_type = typename circular_deque_type::size_type;
 
 public:
-	using difference_type = typename circular_deque::difference_type;
-	using value_type = typename circular_deque::size_type;
-	using pointer = typename circular_deque::pointer;
-	using const_pointer = typename circular_deque::const_pointer;
-	using reference = typename circular_deque::reference;
-	using const_reference = typename circular_deque::const_reference;
+	using difference_type = typename circular_deque_type::difference_type;
+	using value_type = typename circular_deque_type::size_type;
+	using pointer = typename circular_deque_type::pointer;
+	using const_pointer = typename circular_deque_type::const_pointer;
+	using reference = typename circular_deque_type::reference;
+	using const_reference = typename circular_deque_type::const_reference;
 	using iterator_category = std::bidirectional_iterator_tag;
 
 private:
-	circular_deque * owner = nullptr;
+	circular_deque_type * owner = nullptr;
 	size_type index = 0;
 
-	explicit constexpr circular_deque_iterator(circular_deque & owner, size_type index) :
+	explicit constexpr circular_deque_iterator(circular_deque_type & owner, size_type index) :
 		owner { &owner }, index { index }
 	{
 	}
@@ -489,7 +489,7 @@ public:
 
 	circular_deque_iterator & operator ++()
 	{
-		this->index = circular_deque::next_back_index(this->index);
+		this->index = circular_deque_type::next_back_index(this->index);
 		return *this;
 	}
 
@@ -502,7 +502,7 @@ public:
 
 	circular_deque_iterator & operator --()
 	{
-		this->index = circular_deque::previous_back_index(this->index);
+		this->index = circular_deque_type::previous_back_index(this->index);
 		return *this;
 	}
 
