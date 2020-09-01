@@ -400,12 +400,12 @@ public:
 		{
 			// Search the front first
 			for (size_type index = this->front_index; index < capacity; ++index)
-				if (this->array[i] == value)
+				if (this->array[index] == value)
 					return true;
 			
 			// Then the back
 			for (size_type index = first_index; index < this->back_index; ++index)
-				if (this->array[i] == value)
+				if (this->array[index] == value)
 					return true;
 					
 			return false;
