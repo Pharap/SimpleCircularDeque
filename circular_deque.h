@@ -212,37 +212,37 @@ public:
 	// O(1)
 	reverse_iterator rbegin()
 	{
-		return reverse_iterator(iterator(*this, this->begin_index()));
+		return reverse_iterator(this->end());
 	}
 
 	// O(1)
 	constexpr const_reverse_iterator rbegin() const
 	{
-		return const_reverse_iterator(const_iterator(*this, this->begin_index()));
+		return const_reverse_iterator(this->end());
 	}
 
 	// O(1)
 	constexpr const_reverse_iterator crbegin() const
 	{
-		return const_reverse_iterator(const_iterator(*this, this->begin_index()));
+		return const_reverse_iterator(this->cend());
 	}
 
 	// O(1)
 	reverse_iterator rend()
 	{
-		return reverse_iterator(iterator(*this, this->end_index()));
+		return reverse_iterator(this->begin());
 	}
 
 	// O(1)
 	constexpr const_reverse_iterator rend() const
 	{
-		return const_reverse_iterator(const_iterator(*this, this->end_index()));
+		return const_reverse_iterator(this->begin());
 	}
 
 	// O(1)
 	constexpr const_reverse_iterator crend() const
 	{
-		return const_reverse_iterator(const_iterator(*this, this->end_index()));
+		return const_reverse_iterator(this->cbegin());
 	}
 
 	// O(1)
