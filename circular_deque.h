@@ -513,13 +513,13 @@ public:
 		return temporary;
 	}
 
-	constexpr bool operator ==(circular_deque_iterator & other) const
+	constexpr bool operator ==(const circular_deque_iterator & other) const
 	{
 		// Two iterators are only equal if they refer to the same index in the same deque
 		return (this->index == other.index) && (this->owner == other.owner);
 	}
 
-	constexpr bool operator !=(circular_deque_iterator & other) const
+	constexpr bool operator !=(const circular_deque_iterator & other) const
 	{
 		return (this->index != other.index) || (this->owner != other.owner);
 	}
