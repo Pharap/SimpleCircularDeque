@@ -176,37 +176,37 @@ public:
 	// O(1)
 	iterator begin()
 	{
-		return iterator(*this, this->begin_index());
+		return iterator::make_begin(*this);
 	}
 
 	// O(1)
 	constexpr const_iterator begin() const
 	{
-		return const_iterator(*this, this->begin_index());
+		return const_iterator::make_begin(*this);
 	}
 
 	// O(1)
 	constexpr const_iterator cbegin() const
 	{
-		return const_iterator(*this, this->begin_index());
+		return const_iterator::make_begin(*this);
 	}
 
 	// O(1)
 	iterator end()
 	{
-		return iterator(*this, this->end_index());
+		return iterator::make_end(*this);
 	}
 
 	// O(1)
 	constexpr const_iterator end() const
 	{
-		return const_iterator(*this, this->end_index());
+		return const_iterator::make_end(*this);
 	}
 
 	// O(1)
 	constexpr const_iterator cend() const
 	{
-		return const_iterator(*this, this->end_index());
+		return const_iterator::make_end(*this);
 	}
 
 	// O(1)
@@ -457,10 +457,21 @@ public:
 private:
 	circular_deque_type * owner = nullptr;
 	size_type index = 0;
+	size_type count = 0;
 
-	explicit constexpr circular_deque_iterator(circular_deque_type & owner, size_type index) :
-		owner { &owner }, index { index }
+	explicit constexpr circular_deque_iterator(circular_deque_type & owner, size_type index, size_type count) :
+		owner { &owner }, index { index }, count { count }
 	{
+	}
+
+	static constexpr circular_deque_iterator make_begin(circular_deque_type & owner)
+	{
+		return circular_deque_iterator(owner, owner.begin_index(), 0);
+	}
+
+	static constexpr circular_deque_iterator make_end(circular_deque_type & owner)
+	{
+		return circular_deque_iterator(owner, owner.end_index(), owner.count);
 	}
 
 public:
@@ -490,6 +501,7 @@ public:
 	circular_deque_iterator & operator ++()
 	{
 		this->index = circular_deque_type::next_back_index(this->index);
+		++this->count;
 		return *this;
 	}
 
@@ -503,6 +515,7 @@ public:
 	circular_deque_iterator & operator --()
 	{
 		this->index = circular_deque_type::previous_back_index(this->index);
+		--this->count;
 		return *this;
 	}
 
@@ -516,11 +529,11 @@ public:
 	constexpr bool operator ==(const circular_deque_iterator & other) const
 	{
 		// Two iterators are only equal if they refer to the same index in the same deque
-		return (this->index == other.index) && (this->owner == other.owner);
+		return (this->count == other.count) && (this->index == other.index) && (this->owner == other.owner);
 	}
 
 	constexpr bool operator !=(const circular_deque_iterator & other) const
 	{
-		return (this->index != other.index) || (this->owner != other.owner);
+		return (this->count != other.count) || (this->index != other.index) || (this->owner != other.owner);
 	}
 };
